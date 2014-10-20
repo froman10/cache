@@ -1,0 +1,6 @@
+Programa Inicial************
+- Direct Mapp
+- Write Allocate
+- Write Back
+- Tamaño Bloque N basado en número de palabras que contiene.
+- Cache Size N(número de líneas que contiene.)
