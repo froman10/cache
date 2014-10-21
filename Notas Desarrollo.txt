@@ -1,6 +1,11 @@
 Programa Inicial************
 - Direct Mapp
+	offset: log2 del tamaño del bloque
+	index: log2 del tamaño del cache/log2 del tamaño del bloque
+	tag: 32 - index - offset
 - Write Allocate
 - Write Back
 - Tamaño Bloque N basado en número de palabras que contiene.
 - Cache Size N(número de líneas que contiene.)
+
+
