@@ -7,11 +7,14 @@
  *
  * @author Skorp
  */
-class FullyAssociative extends CacheHeart {
+class FullyAssociative extends CacheEngine {
 
-    public FullyAssociative(int bs, int cs, boolean split, HitHandler hh, MissHandler mh) {
-        super(bs, cs, split, hh, mh);
+    public FullyAssociative(int bs, int cs, boolean split, boolean wb, boolean wa, int numSets) {
+        super(bs, cs, split, wb, wa, numSets);
     }
+
+    
+    
 
     
 

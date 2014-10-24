@@ -7,14 +7,15 @@
  *
  * @author Skorp
  */
-class SetAssociative extends CacheHeart {
+class SetAssociative extends CacheEngine {
 
-    int numSets;
-
-    public SetAssociative(int numSets, int bs, int cs, boolean split, HitHandler hh, MissHandler mh) {
-        super(bs, cs, split, hh, mh);
-        this.numSets = numSets;
+    public SetAssociative(int bs, int cs, boolean split, boolean wb, boolean wa, int numSets) {
+        super(bs, cs, split, wb, wa, numSets);
     }
+
+    
+
+    
     
 
     

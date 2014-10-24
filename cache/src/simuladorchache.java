@@ -18,12 +18,12 @@ public class simuladorchache {
     public static void main(String[] args) throws IOException{
         int bs = 0;
         int cs = 0;
-        int numSets = 0;
+        int numSets = 1;
         boolean split = false;
         int tipoCache = 1; //Direct Map Default 
-        HitHandler hh = new WriteBack();
-        MissHandler mh = new WriteAllocate();
-        CacheHeart ch;
+        boolean wb = true;
+        boolean wa = true;
+        CacheEngine ch;
         
         for(int i = 0; i < args.length;i++){
             switch (args[i]) {
@@ -34,7 +34,7 @@ public class simuladorchache {
                     cs = Integer.parseInt(args[++i]);
                     break;
                 case "-wt":
-                    hh = new WriteThrough();
+                    wb = false;
                     break;
                 case "-fa":
                     tipoCache = 2;
@@ -44,7 +44,7 @@ public class simuladorchache {
                     numSets = Integer.parseInt(args[++i]);
                     break;    
                 case "-wna":
-                    mh = new WriteNoAllocate();
+                    wa = false;
                     break;
                 case "-split":
                     split = true;
@@ -52,13 +52,13 @@ public class simuladorchache {
             }
         }
         if(tipoCache == 1){
-            ch = new DirectMap(bs, cs, split, hh, mh);
+            ch = new DirectMap(bs, cs, split, wb, wa, numSets);
         }
         else if(tipoCache == 2){
-            ch = new SetAssociative(numSets, bs, cs, split, hh, mh);
+            ch = new SetAssociative(bs, cs, split, wb, wa, numSets);
         }
         else if(tipoCache == 3){
-            ch = new FullyAssociative(bs, cs, split, hh, mh);
+            ch = new FullyAssociative(bs, cs, split, wb, wa, numSets);
         }
         try {
             BufferedReader bf = new BufferedReader(new FileReader(args[args.length-1]));

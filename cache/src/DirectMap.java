@@ -3,11 +3,15 @@
  *
  * @author Skorp
  */
-class DirectMap extends CacheHeart {
+class DirectMap extends CacheEngine {
 
-    public DirectMap(int bs, int cs, boolean split, HitHandler hh, MissHandler mh) {
-        super(bs, cs, split, hh, mh);
+    public DirectMap(int bs, int cs, boolean split, boolean wb, boolean wa, int numSets) {
+        super(bs, cs, split, wb, wa, numSets);
     }
+
+    
+
+    
 
     
 
