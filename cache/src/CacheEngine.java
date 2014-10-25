@@ -39,7 +39,7 @@ class CacheEngine {
         this.numWordsCopiadosDesde = 0;
         this.numWordsCopiadosA = 0;
         this.cache = new HashMap();
-        //Calclar tag
+        this.calcularTag();
     }
 
    
@@ -63,8 +63,8 @@ class CacheEngine {
             this.WriteNoAllocate();
         }
     }
-    
     public void calcularTag(){
+        tag =  32 - (int)(Math.log(bs) / Math.log(2));
     }
 
     private void WriteBack() {
