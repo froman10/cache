@@ -1,4 +1,5 @@
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -20,9 +21,13 @@ class CacheEngine {
     int numFaltaDatos;
     int numWordsCopiadosDesde;
     int numWordsCopiadosA;
+    //Componentes de la direccion
     int tag;
+    int index;
+    int offset;
+    //Numero de sets
     int numSets;
-    HashMap cache;
+    HashMap<String, ArrayList<CacheLine>> cacheSets;
     
 
     public CacheEngine(int bs, int cs, boolean split, boolean wb, boolean wa, int numSets) {
@@ -38,50 +43,50 @@ class CacheEngine {
         this.numFaltaDatos = 0;
         this.numWordsCopiadosDesde = 0;
         this.numWordsCopiadosA = 0;
-        this.cache = new HashMap();
-        this.calcularTag();
+        this.cacheSets = new HashMap();
+        
     }
 
    
     public void processingAccess(int tipoInstruccion, String dirMemHex ){
         
     }
-    
+    public String hexTo32Bits(String hex) {
+        int i = Integer.parseInt(hex, 16);
+        String bin = Integer.toBinaryString(i);
+        return this.complete32Bits(bin);
+    }
+    public String complete32Bits(String bin){
+        String completeBin = ""+bin;
+        for(int i = bin.length(); i <= 32; i++){
+            completeBin = "0"+completeBin;
+        }
+        return completeBin;
+    }
     public void handlingHit(){
         if(wb){
-            this.WriteBack();
+            //this.WriteBack();
         }
         else{
-            this.WriteThrough();
+            //this.WriteThrough();
         }
     }
     public void handlingMiss(){
         if(wa){
-            this.WriteAllocate();
+            //this.WriteAllocate();
         }
         else{
-            this.WriteNoAllocate();
+            //this.WriteNoAllocate();
         }
     }
-    public void calcularTag(){
-        tag =  32 - (int)(Math.log(bs) / Math.log(2));
+    public void calcularPartesAddress() {
     }
 
-    private void WriteBack() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    private void WriteThrough() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    private void WriteAllocate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    private void WriteNoAllocate() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
+   
     
     
     
