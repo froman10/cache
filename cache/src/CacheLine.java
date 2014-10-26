@@ -11,7 +11,9 @@ public class CacheLine {
         this.dirty = false;
         this.tag = "";
     }
-
+    public boolean equalToTag(String tagIn){
+        return this.tag.equals(tagIn);
+    }
     public boolean isDirty() {
         return dirty;
     }
