@@ -1,5 +1,4 @@
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -134,16 +133,20 @@ class CacheEngine {
             this.numRefInstr++;
         }
     }
+     //Calcular tag, index, offset
     public void calcularPartesAddress() {
+        this.offset = 2+(int)(Math.log(bs) / Math.log(2));
+        this.index = ((int)(Math.log(cs) / Math.log(2)))-((int)(Math.log(numSets) / Math.log(2)));
+        this.tag = 32 - this.offset - this.index;
     }
     
     public void imprimirResultado(){
-        System.out.println("Numero referencias instrucciones: "+this.numRefInstr);
-        System.out.println("Numero faltas instrucciones: "+this.numFaltaInstr);
-        System.out.println("Numero referencias datos: "+this.numRefDatos);
-        System.out.println("Numero faltas datos: "+this.numFaltaDatos);
-        System.out.println("Numero  words copiados desde memoria: "+this.numWordsCopiadosDesde);
-        System.out.println("Numero words copiados a memoria: "+this.numWordsCopiadosA);
+        System.out.println("1. Número de referencias a instrucciones: "+this.numRefInstr);
+        System.out.println("2. Número de referencias a datos: "+this.numRefDatos);
+        System.out.println("3. Número de faltas de instrucciones: "+this.numFaltaInstr);
+        System.out.println("4. Número de faltas de datos: "+this.numFaltaDatos);
+        System.out.println("5. Número de words copiados desde memoria principal: "+this.numWordsCopiadosDesde);
+        System.out.println("6. Número de words copiados a memoria principal: "+this.numWordsCopiadosA);
     }
 
 

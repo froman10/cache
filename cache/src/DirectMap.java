@@ -21,12 +21,14 @@ class DirectMap extends CacheEngine {
         //Obtener bits del index y tag
         String sTag = address.substring(0, this.tag);
         String sIndex = address.substring(this.tag, this.tag+this.index);
+        
         //Si no existe el set, lo creamos y le agregamos una linea vacía.
         if(!this.cacheSets.containsKey(sIndex)){
             ArrayList<CacheLine> cls = new ArrayList<>();
             cls.add(new CacheLine());
             this.cacheSets.put(sIndex, cls);
         }
+        System.out.println(tipoAcceso+" "+address+" "+sTag+" "+sIndex+" "+this.cacheSets.get(sIndex).get(0).equalToTag(sTag)+" "+this.cacheSets.get(sIndex).get(0).isDirty());
         //Elegimos el tipo de acción. 
         if(tipoAcceso == 0 || tipoAcceso == 2){//Leer
             this.handlingRead(tipoAcceso, sIndex, sTag);
@@ -34,14 +36,15 @@ class DirectMap extends CacheEngine {
         else{//Escribir
             this.handlingWrite(sIndex, sTag);
         }
+        
     }
-    //Calcular tag, index, offset
+    /**Calcular tag, index, offset
     @Override
     public void calcularPartesAddress() {
         this.offset = 2+(int)(Math.log(bs) / Math.log(2));
         this.index = (int)(Math.log(cs) / Math.log(2));
         this.tag = 32 - this.offset - this.index;
-    }
+    }**/
     //Elegir proceso de hit o miss en escritura.
     @Override
     public  void handlingWrite(String sIndex, String sTag){

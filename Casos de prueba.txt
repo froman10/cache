@@ -5,3 +5,4 @@
 -bs 4 -cs 8192 spice10.trace
 -bs 4 -cs 8192 spice100.trace
 -bs 4 -cs 8192 spice1000.trace
+-bs 4 -cs 8192 spice10000.trace
