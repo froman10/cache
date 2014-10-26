@@ -1,0 +1,7 @@
+-bs 4 -cs 8192 public-block.trace
+-bs 4 -cs 8192 public-write.trace
+-bs 4 -cs 8192 public-instr.trace
+-bs 4 -cs 8192 public-assoc.trace X
+-bs 4 -cs 8192 spice10.trace
+-bs 4 -cs 8192 spice100.trace
+-bs 4 -cs 8192 spice1000.trace

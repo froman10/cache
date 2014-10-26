@@ -3,6 +3,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -12,9 +13,7 @@ import java.util.logging.Logger;
  */
 public class simuladorchache {
 
-    /**
-     * @param args the command line arguments
-     */
+
     public static void main(String[] args) throws IOException{
         int bs = 0;
         int cs = 0;
@@ -23,7 +22,10 @@ public class simuladorchache {
         int tipoCache = 1; //Direct Map Default 
         boolean wb = true;
         boolean wa = true;
-        CacheEngine ch;
+        CacheEngine ch = null;
+        
+        Scanner sc = new Scanner(System.in);
+        args = sc.nextLine().split(" ");
         
         for(int i = 0; i < args.length;i++){
             switch (args[i]) {
@@ -66,8 +68,10 @@ public class simuladorchache {
             String[] valuesLine;
             while ((traceLine = bf.readLine())!=null) {//Leemos la linea del archivo trace
                 valuesLine = traceLine.split(" ");//Obtenemos los valores individuales. Nos interesan los dos primeros
+                ch.processingAccess(Integer.parseInt(valuesLine[0]), valuesLine[1]);
                 
              }
+            ch.imprimirResultado();
             
         } catch (FileNotFoundException ex) {
             Logger.getLogger(simuladorchache.class.getName()).log(Level.SEVERE, null, ex);

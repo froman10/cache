@@ -13,14 +13,14 @@ class DirectMap extends CacheEngine {
         super(bs, cs, split, wb, wa, numSets);
         this.calcularPartesAddress();
     }
-    //Procesar trace.
+    //Procesar trace con Direct Map.
     @Override
     public void processingAccess(int tipoAcceso, String dirMemHex ){
         //Convierto el hexadecimal a binario
         String address = this.hexTo32Bits(dirMemHex);
         //Obtener bits del index y tag
-        String sTag = address.substring(0, this.tag-1);
-        String sIndex = address.substring(this.tag, this.index-1);
+        String sTag = address.substring(0, this.tag);
+        String sIndex = address.substring(this.tag, this.tag+this.index);
         //Si no existe el set, lo creamos y le agregamos una linea vacía.
         if(!this.cacheSets.containsKey(sIndex)){
             ArrayList<CacheLine> cls = new ArrayList<>();
