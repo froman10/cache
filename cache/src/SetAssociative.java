@@ -20,7 +20,6 @@ class SetAssociative extends CacheEngine {
         //Obtener bits del index y tag
         String sTag = address.substring(0, this.tag);
         String sIndex = address.substring(this.tag, this.tag+this.index);
-        
         //Si no existe el set, lo creamos y le agregamos una linea vacía.
         if(!this.cacheSets.containsKey(sIndex)){
             ArrayList<CacheLine> cls = new ArrayList<>();
@@ -42,22 +41,50 @@ class SetAssociative extends CacheEngine {
     @Override
     public  void handlingWrite(String sIndex, String sTag){
         ArrayList<CacheLine> cls = this.cacheSets.get(sIndex);
-        if(cls.get(0).equalToTag(sTag)){//Si coincide el tag es un write hit.
-            this.handlingWriteHit(sIndex, sTag, 0);
+        int lineIndex;
+        //Verificamos si el tag corresponde a alguna de las líneas ya ingresadas.
+        for(lineIndex = 0; lineIndex < cls.size(); lineIndex++){
+            if(cls.get(lineIndex).equalToTag(sTag)){//Si coincide el tag es un write hit.
+                this.handlingWriteHit(sIndex, sTag, lineIndex);
+                return;
+            }  
         }
+        //Verificamos que quede espacio para agregar una nueva línea.
+        if(lineIndex < this.numSets){
+            cls.add(new CacheLine());
+            this.handlingWriteMiss(sIndex, sTag, lineIndex);
+        }
+        //Reemplazamos en orden FIFO
         else{
-            this.handlingWriteMiss(sIndex, sTag, 0);//Caso contrario es un write miss.
+            CacheLine cl = cls.get(0);
+            cls.remove(0);
+            cls.add(cl);
+            this.handlingWriteMiss(sIndex, sTag, --lineIndex);
         }
     }
     //Elegir proceso de hit o miss en lectura.
     @Override
     public void handlingRead(int tipoAcceso, String sIndex, String sTag){
         ArrayList<CacheLine> cls = this.cacheSets.get(sIndex);
-        if(cls.get(0).equalToTag(sTag)){//Si coincide el tag es un read hit.
-            this.handlingReadHit(tipoAcceso);
+        int lineIndex;
+        //Verificamos si el tag corresponde a alguna de las líneas ya ingresadas.
+        for(lineIndex = 0; lineIndex < cls.size(); lineIndex++){
+            if(cls.get(lineIndex).equalToTag(sTag)){//Si coincide el tag es un write hit.
+                this.handlingReadHit(tipoAcceso);
+                return;
+            }  
         }
-        else{//Caso contrario es un read miss.
-            this.handlingReadMiss(tipoAcceso, sIndex, sTag,0);
+        //Verificamos que quede espacio para agregar una nueva línea.
+        if(lineIndex < this.numSets){
+            cls.add(new CacheLine());
+            this.handlingReadMiss(tipoAcceso, sIndex, sTag, lineIndex);
+        }
+        //Reemplazamos en orden FIFO
+        else{
+            CacheLine cl = cls.get(0);
+            cls.remove(0);
+            cls.add(cl);
+            this.handlingReadMiss(tipoAcceso, sIndex, sTag, --lineIndex);
         }
     }
 

@@ -76,7 +76,7 @@ class CacheEngine {
     public void handlingRead(int tipoAcceso, String sIndex, String sTag){
         
     }
-    //Manejar un write hit
+    //Maneja un write hit
     public void handlingWriteHit(String sIndex, String sTag, int indexCacheLine){
         ArrayList<CacheLine> cls = this.cacheSets.get(sIndex);
         if(wb){//Si es write back
@@ -89,7 +89,7 @@ class CacheEngine {
         }
         this.numRefDatos++;
     }
-    //Manejar un write miss
+    //Maneja un write miss
     public void handlingWriteMiss(String sIndex, String sTag, int indexCacheLine){
         ArrayList<CacheLine> cls = this.cacheSets.get(sIndex);
         if(wa){//Si es write allocate

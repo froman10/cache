@@ -39,10 +39,10 @@ public class simuladorchache {
                     wb = false;
                     break;
                 case "-fa":
-                    tipoCache = 2;
+                    tipoCache = 3;
                     break;                    
                 case "-sa":
-                    tipoCache = 3;
+                    tipoCache = 2;
                     numSets = Integer.parseInt(args[++i]);
                     break;    
                 case "-wna":
@@ -60,6 +60,7 @@ public class simuladorchache {
             ch = new SetAssociative(bs, cs, split, wb, wa, numSets);
         }
         else if(tipoCache == 3){
+            numSets = cs;
             ch = new FullyAssociative(bs, cs, split, wb, wa, numSets);
         }
         try {
